@@ -5,33 +5,60 @@
     <title>简易购物车计算器</title>
     <script type = "text/javascript"></script>
     <script>
-
+        //创建计算函数
         function calculateTotal(price, quantity,discount)
         {
             let Total = price * quantity * (1 - discount);
             return Total.toFixed(2);
         }
-
-        function displayReceipt(productName,price,quantity,discount)
+        //创建函数调用及显示
+        function displayReceipt()
         {
+            //获取输入框信息
+            const productName = document.getElementById('productName').value;
+            const price = parseFloat(document.getElementById('price').value);
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const discount = parseFloat(document.getElementById('discount').value);
+            //调用计算函数
             let Total = calculateTotal(price, quantity,discount);
-            document.write("商品名称："+productName+"<br>");
-            document.write("商品单价：￥"+price.toFixed(2)+"<br>");
-            document.write("商品数量："+quantity+"<br>");
-            document.write("折扣率："+(discount * 100).toFixed(2)+"%<br>");
-            document.write("总计：￥"+Total);
-        }
+            //验证输入确保有效
+            if (!productName || isNaN(price) || isNaN(quantity) || isNaN(discount)) {
+                alert("请填写所有字段并确保输入有效！");
+                return;
+            }
 
+            if (discount < 0 || discount > 1) {
+                alert("折扣率必须在0到1之间！");
+                return;
+            }
+            //弹窗输出最终结果
+            alert("商品名称："+productName+"\n"+
+                "商品单价：￥"+price.toFixed(2)+"\n"+
+                "商品数量："+quantity+"\n"+
+                "折扣率："+(discount * 100).toFixed(2)+"%\n"+
+                "总计：￥"+Total+"\n");
+        }
     </script>
 </head>
 <body>
-<script>
-    displayReceipt("JavaScript教程",59.9,2,0.2);
-    document.write("<br>");
-    displayReceipt("无线鼠标",129,1,0.1);
-    document.write("<br>");
-    displayReceipt("衬衫",35,1,0.05);
-
-</script>
+<div>
+    <label>
+        商品名称：<input type = "text" id = "productName">
+    </label>
+    <br>
+    <label>
+        商品单价：<input type = "number" id = "price" min = "0" step = "0.01">
+    </label>
+    <br>
+    <label>
+        商品数量：<input type="number" id = "quantity" min = "1">
+    </label>
+    <br>
+    <label>
+        折扣率：<input type="number" id = "discount" min = "0" max = "1" step = "0.01">（以浮点数形式表示）
+    </label>
+    <br>
+</div>
+<button type = "button" onclick = "displayReceipt()">完成</button>
 </body>
 </html>
