@@ -19,8 +19,7 @@
             const price = parseFloat(document.getElementById('price').value);
             const quantity = parseInt(document.getElementById('quantity').value);
             const discount = parseFloat(document.getElementById('discount').value);
-            //调用计算函数
-            let Total = calculateTotal(price, quantity,discount);
+
             //验证输入确保有效
             if (!productName || isNaN(price) || isNaN(quantity) || isNaN(discount)) {
                 alert("请填写所有字段并确保输入有效！");
@@ -31,6 +30,10 @@
                 alert("折扣率必须在0到1之间！");
                 return;
             }
+
+            //调用计算函数
+            let Total = calculateTotal(price, quantity,discount);
+
             //弹窗输出最终结果
             alert("商品名称："+productName+"\n"+
                 "商品单价：￥"+price.toFixed(2)+"\n"+
